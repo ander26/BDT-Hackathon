@@ -1,7 +1,7 @@
-const ModalButton = ({ children, onClick, type, fill, border }) => {
+const ModalButton = ({ children, onClick, type, fill, border, style }) => {
   return (
     <>
-      <button onClick={onClick} type={type || "button"}>
+      <button onClick={onClick} type={type || "button"} style={style}>
         {children}
       </button>
       <style jsx>{`

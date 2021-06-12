@@ -14,7 +14,7 @@ const PersonalInfo = ({ goAhead }) => {
   const [personalInfo, setPersonalInfo] = useState({
     name: "",
     email: "",
-    password: "",
+    password: undefined,
   });
 
   const [accepted, setAccepted] = useState(false);

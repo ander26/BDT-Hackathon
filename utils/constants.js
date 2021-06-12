@@ -9,3 +9,21 @@ export const HEXAGON_ICONS = {
   BRIEFCASE: "briefcase",
   USER: "user",
 };
+
+export const CUSTOM_STYLES_MODAL = {
+  overlay: {
+    backgroundColor: "rgba(0,0,0,0.5)",
+    zIndex: "998",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  content: {
+    borderRadius: "10px",
+    position: "none",
+    zIndex: "999",
+    border: "none",
+    padding: "40px",
+    maxWidth: "700px",
+  },
+};

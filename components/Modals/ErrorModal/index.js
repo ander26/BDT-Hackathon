@@ -1,25 +1,8 @@
 import ModalButton from "components/Buttons/ModalButton";
 import Modal from "react-modal";
+import { CUSTOM_STYLES_MODAL } from "utils/constants";
 
 Modal.setAppElement(document.body);
-
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(0,0,0,0.5)",
-    zIndex: "998",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  content: {
-    borderRadius: "10px",
-    position: "none",
-    zIndex: "999",
-    border: "none",
-    padding: "40px",
-    maxWidth: "700px",
-  },
-};
 
 const ErrorModal = ({ contentLabel, closeModal, modalIsOpen }) => {
   return (
@@ -27,7 +10,7 @@ const ErrorModal = ({ contentLabel, closeModal, modalIsOpen }) => {
       <Modal
         isOpen={modalIsOpen}
         contentLabel={contentLabel}
-        style={customStyles}
+        style={CUSTOM_STYLES_MODAL}
       >
         <div className="content">
           <h1>¡Ups, algo ha ido mal!</h1>

@@ -18,6 +18,10 @@ const MainContent = () => {
     setPhase(phase + 1);
   };
 
+  const returnBeginning = () => {
+    setPhase(REGISTERING_PHASES.WELCOME_VIEW.index);
+  };
+
   return (
     <>
       <div className="container">
@@ -69,8 +73,12 @@ const MainContent = () => {
           {phase === REGISTERING_PHASES.PERSONAL_INFO.index && (
             <PersonalInfo goAhead={goAhead} />
           )}
-          {phase === REGISTERING_PHASES.LOCATION.index && <LocationInfo />}
-          {phase === REGISTERING_PHASES.CREDIT_CARD.index && <CreditCardInfo />}
+          {phase === REGISTERING_PHASES.LOCATION.index && (
+            <LocationInfo goAhead={goAhead} />
+          )}
+          {phase === REGISTERING_PHASES.CREDIT_CARD.index && (
+            <CreditCardInfo returnBeginning={returnBeginning} />
+          )}
         </div>
       </div>
       <style jsx>{`

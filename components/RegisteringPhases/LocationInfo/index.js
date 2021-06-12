@@ -6,7 +6,7 @@ import PhoneInput from "components/Inputs/PhoneInput";
 import { useEffect, useState } from "react";
 import { colors } from "styles/theme";
 
-const LocationInfo = () => {
+const LocationInfo = ({ goAhead }) => {
   const [locationInfo, setLocationInfo] = useState({
     phone: "",
     address: "",
@@ -40,7 +40,11 @@ const LocationInfo = () => {
     }
   }, []);
 
-  const recordLocation = () => {};
+  const recordLocation = (e) => {
+    e.preventDefault();
+    console.log(locationInfo);
+    goAhead();
+  };
   return (
     <>
       <div className="container">

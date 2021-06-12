@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { colors } from "styles/theme";
 
 const TextInput = ({
@@ -9,18 +10,28 @@ const TextInput = ({
   onChange,
   name,
 }) => {
+  const [show, setShow] = useState(false);
+  const changeVisibility = () => {
+    setShow(!show);
+  };
   return (
     <>
       <label>
         {label}
         <input
           placeholder={placeholder}
-          type={type}
+          type={show ? "text" : type}
           required={required}
           value={value}
           onChange={onChange}
           name={name}
+          autoComplete={type === "password" ? "on" : ""}
         />
+        {type === "password" && (
+          <div className="show" onClick={changeVisibility}>
+            <span>{show ? "Ocultar" : "Mostrar"}</span>
+          </div>
+        )}
       </label>
       <style jsx>{`
         label {
@@ -28,6 +39,7 @@ const TextInput = ({
           color: ${colors.label};
           flex-direction: column;
           margin-top: 24px;
+          position: relative;
         }
         input {
           height: 58px;
@@ -44,6 +56,15 @@ const TextInput = ({
         }
         label > input {
           margin-top: 14px;
+        }
+
+        .show {
+          position: absolute;
+          top: 52px;
+          right: 40px;
+          color: ${colors.lightText};
+          font-size: 14px;
+          cursor: pointer;
         }
       `}</style>
     </>
