@@ -1,3 +1,4 @@
+import DownArrow from "components/Icons/DownArrow";
 import { colors } from "styles/theme";
 
 const CountryDropdown = ({
@@ -29,6 +30,12 @@ const CountryDropdown = ({
               );
             })}
         </select>
+        <DownArrow
+          width={10}
+          height={10}
+          style={{ position: "absolute", top: "57px", right: "30px" }}
+          fill={colors.lightText}
+        />
       </label>
       <style jsx>{`
         label {
@@ -36,6 +43,7 @@ const CountryDropdown = ({
           color: ${colors.label};
           flex-direction: column;
           margin: 24px 0px;
+          position: relative;
         }
         select {
           height: 58px;
@@ -46,6 +54,7 @@ const CountryDropdown = ({
           color: ${colors.placeholder};
           outline: none;
           cursor: pointer;
+          appearance: none;
         }
         select:focus {
           border: 1px solid ${colors.outline};

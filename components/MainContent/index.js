@@ -4,7 +4,7 @@ import LocationInfo from "components/RegisteringPhases/LocationInfo";
 import PersonalInfo from "components/RegisteringPhases/PersonalInfo";
 import WelcomePhase from "components/RegisteringPhases/WelcomePhase";
 import { useState } from "react";
-import { colors } from "styles/theme";
+import { breakpoints, colors } from "styles/theme";
 import { REGISTERING_PHASES } from "utils/constants";
 
 const MainContent = () => {
@@ -135,6 +135,17 @@ const MainContent = () => {
           font-weight: 600;
           margin-left: 9px;
           font-size: 16px;
+        }
+
+        @media (max-width: ${breakpoints.mobile}) {
+          .phases {
+            padding-left: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: none;
+            width: 100%;
+          }
         }
       `}</style>
     </>

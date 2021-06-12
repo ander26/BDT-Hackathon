@@ -3,7 +3,7 @@ export const fonts = {
 };
 
 export const breakpoints = {
-  mobile: "700px",
+  mobile: "800px",
 };
 
 export const colors = {
@@ -17,4 +17,5 @@ export const colors = {
   backgroundHover: "#f5f9ff",
   label: "#696F79",
   placeholder: "#494949",
+  incorrect: "#E21F1F",
 };

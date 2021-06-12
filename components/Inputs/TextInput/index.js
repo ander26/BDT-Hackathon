@@ -9,6 +9,8 @@ const TextInput = ({
   value,
   onChange,
   name,
+  onBlur,
+  style,
 }) => {
   const [show, setShow] = useState(false);
   const changeVisibility = () => {
@@ -25,7 +27,9 @@ const TextInput = ({
           value={value}
           onChange={onChange}
           name={name}
+          onBlur={onBlur}
           autoComplete={type === "password" ? "on" : ""}
+          style={style}
         />
         {type === "password" && (
           <div className="show" onClick={changeVisibility}>
