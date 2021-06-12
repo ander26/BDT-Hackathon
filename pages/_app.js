@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo";
-import { fonts } from "styles/theme";
+import { colors, fonts } from "styles/theme";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -34,8 +34,9 @@ function MyApp({ Component, pageProps }) {
             font-family: ${fonts.base};
           }
           a {
-            color: inherit;
+            color: ${colors.link};
             text-decoration: none;
+            cursor: pointer;
           }
           * {
             box-sizing: border-box;
