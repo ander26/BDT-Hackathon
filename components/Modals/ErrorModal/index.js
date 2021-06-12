@@ -4,7 +4,13 @@ import { CUSTOM_STYLES_MODAL } from "utils/constants";
 
 Modal.setAppElement(document.body);
 
-const ErrorModal = ({ contentLabel, closeModal, modalIsOpen }) => {
+const ErrorModal = ({
+  contentLabel,
+  closeModal,
+  modalIsOpen,
+  title,
+  description,
+}) => {
   return (
     <>
       <Modal
@@ -13,11 +19,8 @@ const ErrorModal = ({ contentLabel, closeModal, modalIsOpen }) => {
         style={CUSTOM_STYLES_MODAL}
       >
         <div className="content">
-          <h1>¡Ups, algo ha ido mal!</h1>
-          <p>
-            Parece que el correo electrónico introducido ya está en uso. Por
-            favor, revísalo y vuelve a intentarlo de nuevo.
-          </p>
+          <h1>{title}</h1>
+          <p>{description}</p>
           <ModalButton onClick={closeModal} type="button" border="black">
             Cerrar
           </ModalButton>

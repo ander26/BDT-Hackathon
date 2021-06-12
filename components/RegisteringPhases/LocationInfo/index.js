@@ -5,6 +5,11 @@ import TextInput from "components/Inputs/TextInput";
 import PhoneInput from "components/Inputs/PhoneInput";
 import { useEffect, useState } from "react";
 import { colors } from "styles/theme";
+import dynamic from "next/dynamic";
+
+const ErrorModal = dynamic(() => import("components/Modals/ErrorModal"), {
+  ssr: false,
+});
 
 const LocationInfo = ({ goAhead }) => {
   const [locationInfo, setLocationInfo] = useState({
@@ -15,6 +20,12 @@ const LocationInfo = ({ goAhead }) => {
   });
 
   const [countries, setCountries] = useState();
+
+  const [modalInfo, setModalInfo] = useState({
+    open: false,
+    title: "¡Ups, algo ha ido mal!",
+    description: "",
+  });
 
   useEffect(async () => {
     const localCountries = (await import("utils/localStorage")).getCountries();
@@ -43,7 +54,23 @@ const LocationInfo = ({ goAhead }) => {
   const recordLocation = (e) => {
     e.preventDefault();
     console.log(locationInfo);
-    goAhead();
+    if (locationInfo.phone.trim().length === 0) {
+      setModalInfo({
+        ...modalInfo,
+        description:
+          "Parece que no has introducido ningún teléfono. Por favor, revísalo y vuelve a intentarlo de nuevo.",
+        open: true,
+      });
+    } else if (locationInfo.address.trim().length === 0) {
+      setModalInfo({
+        ...modalInfo,
+        description:
+          "Parece que no has introducido ninguna dirección. Por favor, revísalo y vuelve a intentarlo de nuevo.",
+        open: true,
+      });
+    } else {
+      goAhead();
+    }
   };
   return (
     <>
@@ -101,6 +128,13 @@ const LocationInfo = ({ goAhead }) => {
           </div>
         </form>
       </div>
+      <ErrorModal
+        contentLabel="Error"
+        closeModal={() => setModalInfo({ ...modalInfo, open: false })}
+        modalIsOpen={modalInfo.open}
+        title={modalInfo.title}
+        description={modalInfo.description}
+      />
       <style jsx>{`
         .container {
           margin-bottom: 20px;

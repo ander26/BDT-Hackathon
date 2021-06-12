@@ -5,6 +5,7 @@ import TextInput from "components/Inputs/TextInput";
 import { useState } from "react";
 import { colors } from "styles/theme";
 import dynamic from "next/dynamic";
+import { EMAIL_REGULAR_EXPRESSION } from "utils/constants";
 
 const ErrorModal = dynamic(() => import("components/Modals/ErrorModal"), {
   ssr: false,
@@ -19,15 +20,41 @@ const PersonalInfo = ({ goAhead }) => {
 
   const [accepted, setAccepted] = useState(false);
 
-  const [openModal, setOpenModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState({
+    open: false,
+    title: "¡Ups, algo ha ido mal!",
+    description: "",
+  });
 
   const recordPersonalInfo = async (e) => {
     e.preventDefault();
     console.log(personalInfo);
-    if (
+
+    if (personalInfo.name.trim().length === 0) {
+      setModalInfo({
+        ...modalInfo,
+        description:
+          "Parece que no has introducido ningún nombre. Por favor, revísalo y vuelve a intentarlo de nuevo.",
+        open: true,
+      });
+    } else if (
+      !EMAIL_REGULAR_EXPRESSION.test(personalInfo.email.toLowerCase())
+    ) {
+      setModalInfo({
+        ...modalInfo,
+        description:
+          "Parece que el correo introducido no es correcto. Por favor, revísalo y vuelve a intentarlo de nuevo.",
+        open: true,
+      });
+    } else if (
       (await import("utils/localStorage")).checkEmailExists(personalInfo.email)
     ) {
-      setOpenModal(true);
+      setModalInfo({
+        ...modalInfo,
+        description:
+          "Parece que el correo electrónico introducido ya está en uso. Por favor, revísalo y vuelve a intentarlo de nuevo.",
+        open: true,
+      });
     } else {
       goAhead();
     }
@@ -90,9 +117,11 @@ const PersonalInfo = ({ goAhead }) => {
         </form>
       </div>
       <ErrorModal
-        contentLabel="Error email"
-        closeModal={() => setOpenModal(false)}
-        modalIsOpen={openModal}
+        contentLabel="Error"
+        closeModal={() => setModalInfo({ ...modalInfo, open: false })}
+        modalIsOpen={modalInfo.open}
+        title={modalInfo.title}
+        description={modalInfo.description}
       />
       <style jsx>{`
         .container {
