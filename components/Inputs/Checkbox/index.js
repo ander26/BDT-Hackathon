@@ -1,10 +1,16 @@
 import { colors } from "styles/theme";
 
-const Checkbox = ({ children, value, onChange, name }) => {
+const Checkbox = ({ children, value, onChange, name, required }) => {
   return (
     <>
       <label>
-        <input type="checkbox" value={value} name={name} onChange={onChange} />
+        <input
+          type="checkbox"
+          value={value}
+          name={name}
+          onChange={onChange}
+          required={required}
+        />
         {children}
       </label>
       <style jsx>{`

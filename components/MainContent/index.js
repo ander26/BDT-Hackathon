@@ -66,7 +66,9 @@ const MainContent = () => {
           {phase === REGISTERING_PHASES.WELCOME_VIEW.index && (
             <WelcomePhase goAhead={goAhead} />
           )}
-          {phase === REGISTERING_PHASES.PERSONAL_INFO.index && <PersonalInfo />}
+          {phase === REGISTERING_PHASES.PERSONAL_INFO.index && (
+            <PersonalInfo goAhead={goAhead} />
+          )}
           {phase === REGISTERING_PHASES.LOCATION.index && <LocationInfo />}
           {phase === REGISTERING_PHASES.CREDIT_CARD.index && <CreditCardInfo />}
         </div>
@@ -111,11 +113,12 @@ const MainContent = () => {
           display: flex;
           flex-direction: column;
           align-items: flex-end;
-        }
-
-        .currentPhase {
           color: ${colors.lighterText};
           font-size: 14px;
+        }
+
+        .currentPhase span ~ span {
+          margin-top: 4px;
         }
 
         .back span strong,

@@ -4,16 +4,33 @@ import Checkbox from "components/Inputs/Checkbox";
 import TextInput from "components/Inputs/TextInput";
 import { useState } from "react";
 import { colors } from "styles/theme";
+import dynamic from "next/dynamic";
 
-const PersonalInfo = () => {
+const ErrorModal = dynamic(() => import("components/Modals/ErrorModal"), {
+  ssr: false,
+});
+
+const PersonalInfo = ({ goAhead }) => {
   const [personalInfo, setPersonalInfo] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const recordPersonalInfo = (e) => {
+  const [accepted, setAccepted] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const recordPersonalInfo = async (e) => {
     e.preventDefault();
+    console.log(personalInfo);
+    if (
+      (await import("utils/localStorage")).checkEmailExists(personalInfo.email)
+    ) {
+      setOpenModal(true);
+    } else {
+      goAhead();
+    }
   };
   return (
     <>
@@ -32,7 +49,6 @@ const PersonalInfo = () => {
             value={personalInfo.name}
             name="name"
             onChange={(e) => {
-              console.log(personalInfo);
               setPersonalInfo({ ...personalInfo, name: e.target.value });
             }}
           />
@@ -58,7 +74,14 @@ const PersonalInfo = () => {
               setPersonalInfo({ ...personalInfo, password: e.target.password })
             }
           />
-          <Checkbox>Acepto los términos y condiciones</Checkbox>
+          <Checkbox
+            required
+            value={accepted}
+            onChange={(e) => setAccepted(e.target.value)}
+            name="accepted"
+          >
+            Acepto los términos y condiciones
+          </Checkbox>
           <MainButton type="submit">Registrar cuenta</MainButton>
           <div className="or">
             <span>o</span>
@@ -66,6 +89,11 @@ const PersonalInfo = () => {
           <SocialButton>Regístrate con Google</SocialButton>
         </form>
       </div>
+      <ErrorModal
+        contentLabel="Error email"
+        closeModal={() => setOpenModal(false)}
+        modalIsOpen={openModal}
+      />
       <style jsx>{`
         .container {
           margin-bottom: 20px;
