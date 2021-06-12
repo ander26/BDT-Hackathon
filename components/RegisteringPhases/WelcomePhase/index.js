@@ -1,8 +1,12 @@
 import { colors } from "styles/theme";
-import { HEXAGON_ICONS } from "utils/constants";
+import { HEXAGON_ICONS, USER_TYPES } from "utils/constants";
 import RegisterOption from "./RegisterOption";
 
-const WelcomePhase = ({ goAhead }) => {
+const WelcomePhase = ({ goAhead, setUser, user }) => {
+  const proceed = (type) => {
+    setUser({ ...user, type: type });
+    goAhead();
+  };
   return (
     <>
       <div className="container">
@@ -11,13 +15,13 @@ const WelcomePhase = ({ goAhead }) => {
         <RegisterOption
           title={"Developers"}
           description={"Cuenta personas para entrar en el mundo dev"}
-          onClick={goAhead}
+          onClick={() => proceed(USER_TYPES.DEVELOPER)}
           type={HEXAGON_ICONS.USER}
         />
         <RegisterOption
           title={"Business"}
           description={"Tienes o perteneces a una compañía"}
-          onClick={goAhead}
+          onClick={() => proceed(USER_TYPES.BUSINESS)}
           type={HEXAGON_ICONS.BRIEFCASE}
         />
       </div>

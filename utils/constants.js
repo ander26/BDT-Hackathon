@@ -5,6 +5,11 @@ export const REGISTERING_PHASES = {
   CREDIT_CARD: { index: 3, title: "Verificación por tarjeta" },
 };
 
+export const USER_TYPES = {
+  DEVELOPER: "developer",
+  BUSINESS: "business",
+};
+
 export const HEXAGON_ICONS = {
   BRIEFCASE: "briefcase",
   USER: "user",

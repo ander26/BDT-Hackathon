@@ -10,6 +10,19 @@ import { REGISTERING_PHASES } from "utils/constants";
 const MainContent = () => {
   const [phase, setPhase] = useState(REGISTERING_PHASES.WELCOME_VIEW.index);
 
+  const [user, setUser] = useState({
+    type: "",
+    name: "",
+    email: "",
+    password: undefined,
+    phone: "",
+    address: "",
+    country: "",
+    dial: "",
+    creditCard: "",
+    cvv: "",
+  });
+
   const goBack = () => {
     setPhase(phase - 1);
   };
@@ -68,16 +81,20 @@ const MainContent = () => {
         </div>
         <div className="phases">
           {phase === REGISTERING_PHASES.WELCOME_VIEW.index && (
-            <WelcomePhase goAhead={goAhead} />
+            <WelcomePhase goAhead={goAhead} setUser={setUser} user={user} />
           )}
           {phase === REGISTERING_PHASES.PERSONAL_INFO.index && (
-            <PersonalInfo goAhead={goAhead} />
+            <PersonalInfo goAhead={goAhead} setUser={setUser} user={user} />
           )}
           {phase === REGISTERING_PHASES.LOCATION.index && (
-            <LocationInfo goAhead={goAhead} />
+            <LocationInfo goAhead={goAhead} setUser={setUser} user={user} />
           )}
           {phase === REGISTERING_PHASES.CREDIT_CARD.index && (
-            <CreditCardInfo returnBeginning={returnBeginning} />
+            <CreditCardInfo
+              returnBeginning={returnBeginning}
+              setUser={setUser}
+              user={user}
+            />
           )}
         </div>
       </div>

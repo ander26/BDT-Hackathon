@@ -11,7 +11,7 @@ const ErrorModal = dynamic(() => import("components/Modals/ErrorModal"), {
   ssr: false,
 });
 
-const PersonalInfo = ({ goAhead }) => {
+const PersonalInfo = ({ goAhead, setUser, user }) => {
   const [personalInfo, setPersonalInfo] = useState({
     name: "",
     email: "",
@@ -28,7 +28,6 @@ const PersonalInfo = ({ goAhead }) => {
 
   const recordPersonalInfo = async (e) => {
     e.preventDefault();
-    console.log(personalInfo);
 
     if (personalInfo.name.trim().length === 0) {
       setModalInfo({
@@ -56,6 +55,7 @@ const PersonalInfo = ({ goAhead }) => {
         open: true,
       });
     } else {
+      setUser({ ...user, ...personalInfo });
       goAhead();
     }
   };
@@ -98,7 +98,7 @@ const PersonalInfo = ({ goAhead }) => {
             value={personalInfo.password}
             name="password"
             onChange={(e) =>
-              setPersonalInfo({ ...personalInfo, password: e.target.password })
+              setPersonalInfo({ ...personalInfo, password: e.target.value })
             }
           />
           <Checkbox

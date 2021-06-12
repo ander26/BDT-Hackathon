@@ -16,7 +16,7 @@ const ErrorModal = dynamic(() => import("components/Modals/ErrorModal"), {
   ssr: false,
 });
 
-const CreditCardInfo = ({ returnBeginning }) => {
+const CreditCardInfo = ({ returnBeginning, user, setUser }) => {
   const [creditCardInfo, setCreditCardInfo] = useState({
     cvv: "",
     creditCard: "",
@@ -32,7 +32,7 @@ const CreditCardInfo = ({ returnBeginning }) => {
 
   const [validations, setValidations] = useState();
 
-  const createAccount = (e) => {
+  const createAccount = async (e) => {
     e.preventDefault();
 
     if (!validations?.correctCreditCard) {
@@ -50,7 +50,8 @@ const CreditCardInfo = ({ returnBeginning }) => {
         open: true,
       });
     } else {
-      // TODO: Guardar usuario
+      setUser({ ...user, ...creditCardInfo });
+      (await import("utils/localStorage")).saveUser(user);
       setOpenModal(true);
     }
   };

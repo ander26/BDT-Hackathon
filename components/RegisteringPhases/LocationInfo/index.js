@@ -11,7 +11,7 @@ const ErrorModal = dynamic(() => import("components/Modals/ErrorModal"), {
   ssr: false,
 });
 
-const LocationInfo = ({ goAhead }) => {
+const LocationInfo = ({ goAhead, setUser, user }) => {
   const [locationInfo, setLocationInfo] = useState({
     phone: "",
     address: "",
@@ -53,7 +53,6 @@ const LocationInfo = ({ goAhead }) => {
 
   const recordLocation = (e) => {
     e.preventDefault();
-    console.log(locationInfo);
     if (locationInfo.phone.trim().length === 0) {
       setModalInfo({
         ...modalInfo,
@@ -69,6 +68,7 @@ const LocationInfo = ({ goAhead }) => {
         open: true,
       });
     } else {
+      setUser({ ...user, ...locationInfo });
       goAhead();
     }
   };
