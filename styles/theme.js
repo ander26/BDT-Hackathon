@@ -18,4 +18,5 @@ export const colors = {
   label: "#696F79",
   placeholder: "#494949",
   incorrect: "#E21F1F",
+  hover: "#59BA52",
 };

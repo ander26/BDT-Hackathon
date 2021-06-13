@@ -15,6 +15,11 @@ const MainButton = ({ children, onClick, type }) => {
           color: white;
           border: none;
           cursor: pointer;
+          transition: 0.4s;
+        }
+
+        button:hover {
+          background: ${colors.hover};
         }
       `}</style>
     </>
